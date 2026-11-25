@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+Thumbs.db
+.claude/
+.env
+.env.*
+
+# Material de trabajo que no se publica
+INSTRUCCIONES ALUMNADO*.pdf
+Modelo ficha proyecto*.pdf
+MEJORES_IDEAS.md
+ideas_generadas.*
+tellamo-web/DESIGN.md

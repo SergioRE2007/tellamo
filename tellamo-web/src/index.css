@@ -1,0 +1,105 @@
+@import 'tailwindcss';
+
+/* ---------- Design tokens (single source of truth) ---------- */
+@theme {
+  --font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+
+  /* Surfaces */
+  --color-paper: #f6f1e9;      /* page background, warm off-white */
+  --color-paper-2: #efe7da;    /* alternate section background */
+  --color-card: #fffdf9;       /* raised surfaces */
+  --color-line: #e3d9c8;       /* hairlines, borders */
+
+  /* Text */
+  --color-ink: #1c1a17;        /* primary text */
+  --color-ink-2: #4a443c;      /* secondary text (AA on paper) */
+  --color-muted: #6b645b;      /* captions only, >= 14px */
+
+  /* Device / brand */
+  --color-clay: #e8ddcc;       /* device body plastic */
+  --color-clay-dark: #cbbca5;  /* device shadows / edges */
+  --color-night: #1c1a17;      /* dark sections & phone frame */
+
+  /* LED states — the only saturated colours on the page */
+  --color-amber: #f2a33a;      /* enviado */
+  --color-amber-ink: #8a5300;  /* amber used as text on light bg (AA) */
+  --color-green: #2f9e6b;      /* te han entendido */
+  --color-green-ink: #1d6b47;  /* green as text on light bg (AA) */
+  --color-red: #d9503f;        /* sin conexión */
+  --color-red-ink: #a3301f;
+
+  /* Small type steps (body is 17px, set on body) */
+  --text-small: 0.9375rem;              /* 15px: UI labels, captions, buttons */
+  --text-small--line-height: 1.45;
+  --text-micro: 0.8125rem;              /* 13px: status bars, eyebrows, tiny labels */
+  --text-micro--line-height: 1.35;
+
+  --radius-device: 2rem;
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem; /* clears the 64px sticky header for anchors and focus (WCAG 2.4.11) */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    min-height: 100dvh;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 50, 'WONK' 0;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--color-amber); color: var(--color-ink); }
+
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------- Shared utilities ---------- */
+@utility container-page {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) { padding-inline: 2rem; }
+}
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-2);
+}
+@utility sr-only-focusable {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  &:focus { top: 1rem; }
+}
